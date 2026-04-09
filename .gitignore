@@ -8,3 +8,11 @@ __pycache__/
 *.prof
 gmon.out
 *.log
+serial_laplace_cpp
+serial_laplace_cpp_pg
+omp_laplace_cpp
+mpi_laplace_cpp
+mpi_krea_decompose
+results/solution_csv/*.csv
+results/profiles/*.txt
+results/profiles/*.prof
