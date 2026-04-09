@@ -1,0 +1,33 @@
+Ray Python baseline, N=200, max_iter=3000, tol=1e-6
+
+Ray, 1 block
+Total time: 38.746729 s
+Halo exchange time: 24.390450 s
+Iteration compute time: 14.349829 s
+Center value: 0.972337
+Final max diff: 7.900930e-03
+Converged: False
+
+Ray, 2 blocks
+Total time: 68.170498 s
+Halo exchange time: 50.728078 s
+Iteration compute time: 17.435035 s
+Center value: 0.972337
+Final max diff: 7.900930e-03
+Converged: False
+
+Ray, 4 blocks
+Total time: 93.418089 s
+Halo exchange time: 72.310266 s
+Iteration compute time: 21.100201 s
+Center value: 0.972337
+Final max diff: 7.900930e-03
+Converged: False
+
+Observations
+1. Numerical consistency is preserved across all Ray block counts, since the center value and final max difference remain the same.
+2. Ray performance becomes worse as the number of blocks increases on this laptop.
+3. Halo exchange and coordination overhead dominate the runtime.
+4. The compute time itself is smaller than the communication/coordination cost.
+5. For this problem size and local hardware setup, Ray does not scale well.
+6. Ray is much slower than MPI and OpenMP for this stencil-based iterative solver.
