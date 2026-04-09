@@ -9,15 +9,10 @@ def solve_laplace(N=200, max_iter=10000, tol=1e-6):
     # Boundary conditions
     u[0, :] = 100.0
     u_new[0, :] = 100.0
-    u[-1, :] = 0.0
-    u_new[-1, :] = 0.0
-    u[:, 0] = 0.0
-    u_new[:, 0] = 0.0
-    u[:, -1] = 0.0
-    u_new[:, -1] = 0.0
 
     start = time.perf_counter()
     final_diff = None
+    converged = False
 
     for it in range(max_iter):
         u_new[1:-1, 1:-1] = 0.25 * (
@@ -32,6 +27,7 @@ def solve_laplace(N=200, max_iter=10000, tol=1e-6):
 
         final_diff = diff
         if diff < tol:
+            converged = True
             break
 
     end = time.perf_counter()
@@ -40,6 +36,7 @@ def solve_laplace(N=200, max_iter=10000, tol=1e-6):
     print(f"Iterations: {it + 1}")
     print(f"Final max diff: {final_diff:.6e}")
     print(f"Center value: {u[N//2, N//2]:.6f}")
+    print(f"Converged: {converged}")
     print(f"Time: {end - start:.6f} seconds")
 
     np.savetxt("results/solution_csv/python_serial_solution.csv", u, delimiter=",", fmt="%.6f")
