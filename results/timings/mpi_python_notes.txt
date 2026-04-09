@@ -1,0 +1,48 @@
+
+MPI Python baseline, N=400, max_iter=20000, tol=1e-6
+
+MPI Python, 1 process
+Total time: 39.772846 s
+Communication time: 0.001970 s
+Update loop time: 36.460282 s
+Copy loop time: 3.088354 s
+Center value: 4.340229
+Final max diff: 1.098438e-03
+Converged: False
+
+MPI Python, 2 processes
+Total time: 20.508121 s
+Communication time: 0.066618 s
+Update loop time: 18.336417 s
+Copy loop time: 1.547730 s
+Center value: 4.340229
+Final max diff: 1.098438e-03
+Converged: False
+
+MPI Python, 4 processes
+Total time: 11.516111 s
+Communication time: 0.073717 s
+Update loop time: 9.725422 s
+Copy loop time: 0.819004 s
+Center value: 4.340229
+Final max diff: 1.098438e-03
+Converged: False
+
+MPI Python, 8 processes
+Total time: 18.328680 s
+Communication time: 0.462481 s
+Update loop time: 7.970392 s
+Copy loop time: 0.612209 s
+Center value: 4.340229
+Final max diff: 1.098438e-03
+Converged: False
+
+Observations
+1. Numerical correctness is preserved across all process counts, since the center value and final max difference remain consistent.
+2. MPI Python performance improves strongly from 1 to 2 to 4 processes.
+3. The best result here is at 4 processes: 11.516111 s.
+4. Performance becomes worse at 8 processes compared to 4 processes, which suggests that communication and Python-level overhead start dominating.
+5. The update loop is by far the largest hotspot in all cases.
+6. Communication time is small at 1 process, modest at 2 and 4 processes, and becomes much larger at 8 processes.
+7. Even though the update loop time continues to decrease at 8 processes, total runtime increases because synchronization and communication costs rise.
+8. MPI Python is much slower than MPI C++, which indicates the effect of Python interpreter and NumPy-per-row overhead in the iterative loop.
