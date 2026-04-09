@@ -1,0 +1,47 @@
+MPI C++ baseline, N=400, max_iter=20000, tol=1e-6
+
+MPI, 1 process
+Total time: 3.676413 s
+Communication time: 0.000415 s
+Update loop time: 2.570369 s
+Copy loop time: 1.104134 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+MPI, 2 processes
+Total time: 1.953825 s
+Communication time: 0.026990 s
+Update loop time: 1.342436 s
+Copy loop time: 0.560222 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+MPI, 4 processes
+Total time: 1.364184 s
+Communication time: 0.030805 s
+Update loop time: 0.817406 s
+Copy loop time: 0.306822 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+MPI, 8 processes
+Total time: 1.757687 s
+Communication time: 0.055438 s
+Update loop time: 0.742131 s
+Copy loop time: 0.181232 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+Observations
+1. Numerical correctness is preserved across all process counts, since the center value and final max difference remain identical.
+2. MPI performance improves substantially from 1 to 2 to 4 processes.
+3. The best time here is at 4 processes: 1.364184 s.
+4. Performance gets worse at 8 processes compared to 4 processes, which suggests communication and synchronization overhead begin to dominate.
+5. Communication time is very small for 1 process, but becomes noticeable as the number of processes increases.
+6. The update loop remains the dominant computational hotspot, but its runtime decreases as work is divided across more processes.
+7. The copy loop also becomes faster with more processes, since each rank handles fewer rows.
+8. The loss in performance at 8 processes suggests that for this problem size, the computation per process becomes too small relative to MPI overhead.
