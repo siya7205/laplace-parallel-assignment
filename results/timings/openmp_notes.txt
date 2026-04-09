@@ -1,0 +1,49 @@
+Serial C++ baseline, N=400, max_iter=20000, tol=1e-6
+Total time: 4.836557 s
+Update loop time: 3.762600 s
+Copy loop time: 1.073229 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+OpenMP, 1 thread
+Total time: 7.799963 s
+Update loop time: 5.305470 s
+Copy loop time: 2.493684 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+OpenMP, 2 threads
+Total time: 4.552218 s
+Update loop time: 2.996641 s
+Copy loop time: 1.554497 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+OpenMP, 4 threads
+Total time: 3.030280 s
+Update loop time: 1.915386 s
+Copy loop time: 1.113810 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+OpenMP, 8 threads
+Total time: 3.567517 s
+Update loop time: 2.400472 s
+Copy loop time: 1.165953 s
+Center value: 4.340229
+Final max diff: 0.001098
+Converged: false
+
+Observations
+1. Numerical correctness is preserved across all thread counts, since the center value and final max difference match the serial C++ result.
+2. OpenMP with 1 thread is slower than serial C++, which suggests added OpenMP runtime overhead even without true parallel speedup.
+3. Performance improves significantly from 1 to 2 to 4 threads.
+4. The best result here is at 4 threads: 3.030280 s.
+5. Performance becomes worse at 8 threads compared to 4 threads, suggesting diminishing returns and extra overhead.
+6. The update loop benefits most from threading, since it is the largest hotspot.
+7. The copy loop also speeds up, but less dramatically.
+8. This suggests the solver is limited not only by computation but also by memory movement and parallel overhead.
