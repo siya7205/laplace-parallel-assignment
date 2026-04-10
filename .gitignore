@@ -16,3 +16,4 @@ mpi_krea_decompose
 results/solution_csv/*.csv
 results/profiles/*.txt
 results/profiles/*.prof
+*.dSYM/
