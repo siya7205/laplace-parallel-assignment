@@ -1,0 +1,34 @@
+MPI KREA decomposition
+
+Idea
+The word KREA was represented as a union of rectangles, following the rectangle-based decomposition idea used for the MIT domain in Chapter 8.4.
+
+Compilation
+mpic++ -O2 -std=c++17 src/mpi_krea_decompose.cpp -o mpi_krea_decompose
+
+Run command
+mpirun -np 4 ./mpi_krea_decompose
+
+Result
+The program successfully displayed:
+1. a letter view showing the word KREA using rectangular subdomains
+2. an ownership view showing MPI rank assignment
+3. a rectangle list with coordinates and assigned rank
+
+Run summary
+- Total rectangles: 24
+- MPI processes: 4
+
+Rank ownership
+- Rank 0 owns rectangles: 0(K), 4(K), 8(R), 12(R), 16(E), 20(A)
+- Rank 1 owns rectangles: 1(K), 5(K), 9(R), 13(R), 17(E), 21(A)
+- Rank 2 owns rectangles: 2(K), 6(K), 10(R), 14(R), 18(E), 22(A)
+- Rank 3 owns rectangles: 3(K), 7(K), 11(R), 15(R), 19(E), 23(A)
+
+Observations
+1. The irregular word-shaped domain was broken into 24 rectangular subdomains.
+2. Rectangles were distributed across MPI ranks using cyclic assignment.
+3. Rank 0 reconstructed the full decomposition and displayed both the letter view and the ownership map.
+4. The ownership view showed how different parts of the same letter can be assigned to different MPI ranks.
+5. This demonstrates the basic domain decomposition idea from Chapter 8.4.
+6. The decomposition prioritizes rectangular partitioning for parallel assignment rather than typographic precision.
