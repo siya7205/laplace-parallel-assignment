@@ -1,0 +1,11 @@
+Serial Python baseline, N=400, max_iter=20000, tol=1e-6
+
+Total time: 8.541001 s
+Final max diff: 1.098438e-03
+Center value: 4.340229
+Converged: False
+
+Profiler observations
+1. cProfile showed that almost all runtime was spent inside solve_laplace.
+2. The dominant repeated operations were the stencil update and the max-reduction used for convergence checking.
+3. NumPy reduced pure Python loop overhead, but repeated array operations and reductions still dominated runtime.
